@@ -1,4 +1,6 @@
 from graphics import *
+# import RPi.GPIO as GPIO
+import time
 from random import seed
 from random import randint
 
@@ -30,8 +32,12 @@ win_division = win.getWidth()/6
 rpm_display_lbl = Text(Point(win_division * 2, 25), 'RPM')
 rpm_display_num = Text(Point(win_division * 4, 25), '0000')
 speed_display_num = Text(Point(win_division * 3, 380), '___')
-info_display = Rectangle(Point(150, 180), Point(490, 280)) # 30 pixels wide
-
+info_display = Rectangle(Point(150, 180), Point(490, 280))
+oil_lbl = Text(Point(190, 210), 'OIL:')
+oil_val = Text(Point(260, 210), 'LOW')
+trip_lbl = Text(Point(355, 210), 'A:')
+trip_val = Text(Point(415, 210), '0000')
+odo_val = Text(Point(320, 250), '000000')
 
 def draw_dash():
 
@@ -129,6 +135,26 @@ def draw_rpm(f1, f2, f3, fQty):
         rect[bar_count].draw(win)
     return "RPM Drawn"
 
+def draw_oil():
+    oil_lbl.setStyle('bold')
+    oil_lbl.setSize(30)
+    oil_val.setStyle('normal')
+    oil_val.setSize(30)
+    oil_lbl.draw(win)
+    oil_val.draw(win)
+    return 1
+
+def draw_trip():
+    trip_lbl.setStyle('bold')
+    trip_lbl.setSize(30)
+    trip_lbl.draw(win)
+    trip_val.setStyle('normal')
+    trip_val.setSize(30)
+    trip_val.draw(win)
+    odo_val.setStyle('bold')
+    odo_val.setSize(30)
+    odo_val.draw(win)
+    return 1
 
 def test_rpm():
     # Run a wipe once to test display    
@@ -147,8 +173,26 @@ def test_rpm():
         rect[x].setFill("lightgrey")
 
 def show_speed(speed):
-    speed_display_num.setText(speed)
-    
+    speed_display_num.setText(speed)   
+
+def plot_temp(temperature):
+    temp_plot = Rectangle(Point(561, 355), Point(589, 419))
+    temp_plot.setFill('red1')
+    temp_plot.draw(win)
+    return 1
+
+def plot_fuel(level):
+    # 30 pixels wide 50-80
+    # 130 pixels hihg 290-420
+    fuel_plot = Rectangle(Point(51, 291), Point(79, 419))
+    fuel_plot.setFill('red1')
+    fuel_plot.draw(win)
+    return 1
+
+def plot_miles(total):
+    # Info box Rectangle(Point(150, 180), Point(490, 280))
+    return 1
+
 def plot_rpm(old_rpm2, rpm):
     '''
     rpm is provided as a value from 0 to 9999
@@ -182,12 +226,16 @@ print(draw_rpm(50,50,100,rpm_cell_count)) # Draw the RPM
 print(draw_fuel())
 print(draw_temp())
 print(draw_dash())
+print(draw_oil())
+print(draw_trip())
 test_rpm() # Test the RPM
 
 print("Running random values to RPM")
 for loopcount in range (50):
     rpm = randint(200, 6450)
     plot_rpm(prev_rpm, rpm)
+    plot_fuel(50)
+    plot_temp(90)
     show_speed(round(rpm/10))
     prev_rpm = rpm
     time.sleep(0.05)
