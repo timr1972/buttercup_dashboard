@@ -16,6 +16,7 @@ p.ChangeDutyCycle(2.5)
 time.sleep(0.5)
 p.ChangeDutyCycle(12.5)
 time.sleep(0.5)
+# Need to add a section explaining the PWM relationship to degrees of movement.
 
 # Define Globals
 global rpm_cell_count
