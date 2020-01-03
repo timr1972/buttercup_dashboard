@@ -6,7 +6,7 @@ from random import randint
 import time
 
 # Configure Servo Motor
-servoPIN = 12
+servoPIN = 14 # This is next to the GND pin after the two 5v pins. Type PinOut in terminal to see this.
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(servoPIN, GPIO.OUT)
 p = GPIO.PWM(servoPIN, 50) # GPIO 17 for PWM with 50Hz
