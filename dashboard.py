@@ -1,10 +1,21 @@
 from graphics import *
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import time
 from random import seed
 from random import randint
-
 import time
+
+# Configure Servo Motor
+servoPIN = 12
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(servoPIN, GPIO.OUT)
+p = GPIO.PWM(servoPIN, 50) # GPIO 17 for PWM with 50Hz
+p.start(2.5) # Initialization
+# Give the servo a quick change of position
+p.ChangeDutyCycle(2.5)
+time.sleep(0.5)
+p.ChangeDutyCycle(12.5)
+time.sleep(0.5)
 
 # Define Globals
 global rpm_cell_count
