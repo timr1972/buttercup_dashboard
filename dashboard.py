@@ -18,8 +18,9 @@ p = GPIO.PWM(servoPIN, 50)
 # 2.0/20 x 100 = 10%
 # 1.0/20 x 100 = 5%
 p.start(7.5) # Initialization
+print("Servo PWM Duty Cycle: ")
 for loopcount in range (10):
-    print("Servo PWM Duty Cycle: " & loopcount & "%")
+    print(loopcount)
     p.ChangeDutyCycle(loopcount)
     time.sleep(0.5)
 
