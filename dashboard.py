@@ -9,14 +9,21 @@ import time
 servoPIN = 14 # This is next to the GND pin after the two 5v pins. Type PinOut in terminal to see this.
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(servoPIN, GPIO.OUT)
-p = GPIO.PWM(servoPIN, 50) # GPIO 17 for PWM with 50Hz
-p.start(2.5) # Initialization
-# Give the servo a quick change of position
-p.ChangeDutyCycle(2.5)
-time.sleep(0.5)
-p.ChangeDutyCycle(12.5)
-time.sleep(0.5)
-# Need to add a section explaining the PWM relationship to degrees of movement.
+p = GPIO.PWM(servoPIN, 50) 
+# GPIO 17 for PWM with 50Hz, which is 20ms per pulse
+# 1.5 ms = middle
+# 2.0 ms = Full Right
+# 1.0 ms = Full Left
+# 1.5/20 x 100 = 7.5
+# 2.0/20 x 100 = 10
+# 1.0/20 x 100 = 5
+p.start(7.5) # Initialization
+p.ChangeDutyCycle(5) # Full Left
+time.sleep(1.0)
+p.ChangeDutyCycle(10) # Full Right
+time.sleep(1.0)
+p.ChangeDutyCycle(7.5) # Center
+time.sleep(1.0)
 
 # Define Globals
 global rpm_cell_count
