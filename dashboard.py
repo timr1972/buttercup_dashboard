@@ -14,16 +14,13 @@ p = GPIO.PWM(servoPIN, 50)
 # 1.5 ms = middle
 # 2.0 ms = Full Right
 # 1.0 ms = Full Left
-# 1.5/20 x 100 = 7.5
-# 2.0/20 x 100 = 10
-# 1.0/20 x 100 = 5
+# 1.5/20 x 100 = 7.5%
+# 2.0/20 x 100 = 10%
+# 1.0/20 x 100 = 5%
 p.start(7.5) # Initialization
-p.ChangeDutyCycle(5) # Full Left
-time.sleep(1.0)
-p.ChangeDutyCycle(10) # Full Right
-time.sleep(1.0)
-p.ChangeDutyCycle(7.5) # Center
-time.sleep(1.0)
+for loopcount in range (10):
+    p.ChangeDutyCycle(loopcount)
+    time.sleep(0.5)
 
 # Define Globals
 global rpm_cell_count
@@ -59,26 +56,21 @@ trip_val = Text(Point(415, 210), '0000')
 odo_val = Text(Point(320, 250), '000000')
 
 def draw_dash():
-
     rpm_display_lbl.setTextColor('snow1')
     rpm_display_lbl.setStyle('bold')
     rpm_display_lbl.setSize(30)
     rpm_display_lbl.draw(win)
-
     rpm_display_num.setTextColor('red')
     rpm_display_num.setStyle('bold')
     rpm_display_num.setSize(30)
     rpm_display_num.draw(win)
-
     speed_display_num.setTextColor('yellow1')
     speed_display_num.setStyle('bold')
     speed_display_num.setSize(36)
     speed_display_num.draw(win)
-
     info_display.setFill('green4')
     info_display.setOutline('white')
     info_display.draw(win)
-    
     return 1
 
 def draw_fuel():
@@ -129,7 +121,6 @@ def draw_temp():
     temp_display_lbl.setTextColor('orange1')
     temp_display_lbl.setStyle('bold')
     temp_display_lbl.setSize(15)
-
     rect_temp.draw(win)
     temp_display_1.draw(win)
     temp_display_2.draw(win)
@@ -140,7 +131,6 @@ def draw_temp():
 def draw_rpm(f1, f2, f3, fQty):
     if ((fQty * 10) + f1) > 500:
         return "Bar Chart Exceeded Bounds"
-    
     bar_count=0
     bar_pos=f1
     bar_pos = 40
