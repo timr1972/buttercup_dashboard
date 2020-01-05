@@ -19,10 +19,15 @@ p = GPIO.PWM(servoPIN, 50)
 # 1.0/20 x 100 = 5%
 p.start(7.5) # Initialization
 print("Servo PWM Duty Cycle: ")
-for loopcount in range (10):
-    print(loopcount)
-    p.ChangeDutyCycle(loopcount)
-    time.sleep(0.5)
+
+p.ChangeDutyCycle(2)
+time.sleep(0.5)
+p.ChangeDutyCycle(6.5)
+time.sleep(0.5)
+p.ChangeDutyCycle(11)
+time.sleep(0.5)
+p.ChangeDutyCycle(6.5)
+time.sleep(0.5)
 
 # Define Globals
 global rpm_cell_count
