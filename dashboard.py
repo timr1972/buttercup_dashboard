@@ -5,6 +5,7 @@ from random import seed
 from random import randint
 import time
 
+# added a line to test the branch1 of this repo`
 # Configure Servo Motor
 servoPIN = 14 # This is next to the GND pin after the two 5v pins. Type PinOut in terminal to see this.
 GPIO.setmode(GPIO.BCM)
